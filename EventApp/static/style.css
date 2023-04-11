@@ -1,0 +1,196 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Background Image and Search Form */
+  .container {
+    background-image: url('https://images.wallpaperscraft.com/image/single/concert_crowd_people_134866_1920x1080.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+    background-blend-mode: overlay;
+}
+.container h2{
+    color: white;
+    text-align: center;
+    font-size: 45px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding-top: 20px;
+}
+.container p{
+    color: white;
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 5px;
+}
+
+form {
+    padding: 20px;
+    margin: 40px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+}
+input[type=text], input[type=email] {
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+input[type=submit] {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* Browse by Category : Four equal image next to each other */
+.column {
+    float: left;
+    width: 15%;
+    padding: 10px;
+  }
+
+
+.column img {
+    opacity: 0.8;
+    cursor: pointer;
+    height: 150px;
+  }
+
+/* Venue and Attraction : Four equal images next to each other */
+.column2 {
+    float: left;
+    width: 20%;
+    padding: 10px;
+  }
+
+.column2 img {
+    opacity: 0.8;
+    cursor: pointer;
+    height: 200px;
+    border: 0.4px solid;
+  }
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+/* Header */
+
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    font-family: sans-serif;
+    color: #555;    
+  }
+
+.container1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    }
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    }
+
+nav a:hover {
+    color: #d82a2a;
+    }
+
+.logo img {
+    height: 50px;
+    }
+
+nav ul {
+    display: flex;
+    list-style: none;
+    }
+
+nav ul li {
+    margin-left: 30px;
+    }
+
+nav ul li:first-child {
+    margin-left: 0;
+    }
+
+nav ul li a {
+    font-weight: bold;
+    }
+
+.dropdown {
+    position: relative;
+    }
+
+.dropdown:hover ul {
+    display: block;
+    }
+
+.dropdown ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    padding: 10px;
+    }
+
+.dropdown ul li {
+    margin: 5px 0;
+    }
+
+.dropdown ul li a {
+    color: #333;
+    text-decoration: none;
+    }
+
+.dropdown ul li a:hover {
+    color: #007bff;
+    }
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    }
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    }
+
+
+
+
+

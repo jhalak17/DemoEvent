@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Search Form -->
+    <div class="container">
+        <h2>Let's Make Live Happen</h2>
+        <p>Shop millions of live events and discover can't-miss concerts, games, theater and more.</p>
+        <form action = "" method="post">
+            {% csrf_token %}
+            <input type="text" required id="name" name="search_word" placeholder="Search for artist or event">
+            <input type="text" id="city" name="search_city" placeholder="Enter your city" >
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <!-- Browse By Categories -->
+    <h2>Browse by Category</h2>
+    <div class="row">
+        <div class="column">
+        <a href='category?id=KZFzBErXgnZfZ7vA6J'><img src="https://images5.alphacoders.com/349/thumbbig-349660.webp" alt="Concert" style="width:100%"></a>
+        <br>
+        <h3>Concerts</h3>
+        </div>
+        <div class="column">
+        <a href='category?id=KZFzniwnSyZfZ7v7nE'><img src="https://images3.alphacoders.com/212/212835.jpg" alt="Sports" style="width:100%"></a>
+        <h3>Sports</h3>
+        </div>
+        <div class="column">
+        <a href='category?id=KZFzniwnSyZfZ7v7na'><img src="https://images.adsttc.com/media/images/510c/22f2/b3fc/4ba0/1200/0006/slideshow/GPAA_THEATRE95_LIVRAISON_HD-28.jpg?1414508439" alt="Sports" style="width:100%"></a>
+        <br>
+        <h3>Art & Theatre</h3>
+        </div>
+        <div class="column">
+        <a href='category?id=KnvZfZ7vAkF'><img src="https://thumbs.dreamstime.com/b/carnival-ferris-wheel-night-bright-lights-long-exposure-picture-gift-stores-rides-state-fair-phoenix-arizona-108557536.jpg" alt="Lights" style="width:100%"></a>
+        <br>
+        <h3>Family</h3>
+        </div>
+    </div>
+
+    <h2>Top venues near you</h2>
+    <div class="row">
+        {% for venues in venue_list %}
+        <div class="column2">
+        <a href="venue?venue_id={{venues.venue_id}}"><img src={{venues.venue_image}} alt="{{venues.venue_name}}" style="width:100%"></a>
+        <br>
+        <h4>{{venues.venue_name}}</h4>
+        <p>{{venues.venue_upcoming_events}} Upcoming Events</p>
+        </div>
+        {% endfor%}
+    </div>
+
+    <h2>Top Attraction</h2>
+    <div class="row">
+        {% for attractions in attraction_list %}
+        <div class="column2">
+        <a href="attraction?attraction_id={{attractions.attr_id}}"><img src={{attractions.attr_image}} alt="{{attractions.attr_name}}" style="width:100%"></a>
+        <br>
+        <h4>{{attractions.attr_name}}</h4>
+        <p>{{attractions.attr_upcoming_events}} Upcoming Events</p>
+        </div>
+        {% endfor%}
+    </div>
+
+<!-- Fetch user latitude and longitude -->
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script>
+    console.log("script started")
+    window.addEventListener("load", (event) => {
+      console.log("page is fully loaded");
+      getLocation()
+    });
+    
+    
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    }
+    
+    function showPosition(position) {
+      console.log("Latitude: " + position.coords.latitude +
+      "<br>Longitude: " + position.coords.longitude);
+      var lat = position.coords.latitude
+      var long = position.coords.longitude
+      getCity(lat,long)
+    }
+    
+    function getCity(lat,long) {
+        var formData = {
+                'lat': lat,
+                'long': long,
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            };
+    
+            $.ajax({
+                type: 'POST',
+                url: '/getCity',
+                data: formData,
+                encode: true
+            })
+    
+                .done(function (data1) {
+                    data = JSON.parse(data1);
+                    console.log("data fetched from views = "+data1)
+                    if (data['status'] = 'success' ) {
+                        place = data['city'] +', '+ data['country']
+                        document.getElementById('city').value = place
+                    }
+                    else{
+                        console.log('failure')
+                    }
+    
+                });
+        };
+    
+</script>
+    
+
+
+{% endblock %}

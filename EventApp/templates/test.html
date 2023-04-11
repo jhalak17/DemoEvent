@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <script>
+    function sortTableDesc(table_id, sortColumn, sortType){
+      console.log(sortType)
+      var tableData = document.getElementById(table_id).getElementsByTagName('tbody').item(0);
+      var rowData = tableData.getElementsByTagName('tr');     
+      if (sortType == "Desc"){
+        console.log("Under desc")
+      for(var i = 0; i < rowData.length - 1; i++){
+          for(var j = 0; j < rowData.length - (i + 1); j++){
+              if(Number(rowData.item(j).getElementsByTagName('td').item(sortColumn).innerHTML.replace(/[^0-9\.]+/g, "")) < Number(rowData.item(j+1).getElementsByTagName('td').item(sortColumn).innerHTML.replace(/[^0-9\.]+/g, ""))){
+                  tableData.insertBefore(rowData.item(j+1),rowData.item(j));
+              }
+          }
+      }
+    }
+    if (sortType == "Asc"){ 
+        console.log("under asc")          
+      for(var i = 0; i < rowData.length - 1; i++){
+          for(var j = 0; j < rowData.length - (i + 1); j++){
+              if(Number(rowData.item(j).getElementsByTagName('td').item(sortColumn).innerHTML.replace(/[^0-9\.]+/g, "")) > Number(rowData.item(j+1).getElementsByTagName('td').item(sortColumn).innerHTML.replace(/[^0-9\.]+/g, ""))){
+                  tableData.insertBefore(rowData.item(j+1),rowData.item(j));
+              }
+          }
+      }
+  }
+}
+  </script>
+    
+  <form>
+  
+    <input type="text" id="text-input" name="name" placeholder="Search for Artist or Venue">
+    
+
+    <select id="dropdown-input" name="gener">
+      <option value="all">All Genre</option>
+      <option value="pop">Pop</option>
+      <option value="rock">Rock</option>
+    </select>
+    
+    <input type="submit" value="Submit">
+  </form>
+
+
+  <select id="sortType" name="Sort" onchange="sortTableDesc('sortable', 3, this.value)" style = "float:right">
+    <option value="Desc">Sort by Price : High to Low</option>
+    <option value="Asc">Sort by Price : Low to High</option>
+  </select>
+
+
+
+  {% if response_event_list %}
+
+  <main>
+    <table id="sortable">
+      <thead>
+        <tr>
+          <th class="column1">Performer</th>
+          <th class="column1">Event Name</th>
+          <th class="column2">Venue</th>
+          <th class="column3">Min Price</th>
+          <th class="column4">Date</th>
+          <th class="column5">Website</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+        </tr>
+      </tfoot>
+      <tbody>
+        {% comment %} <tr> {% endcomment %}
+          {% for event in response_event_list %}
+                  <tr>
+                  <td class="column1">{{event.performer_name}}</td>    
+                  <td class="column1">{{event.event_name}}</td>
+                  <td class="column2">{{event.venue_name}}</td>
+                  <td class="column3">{{event.min_price}} {{event.currency}}</td>
+                  <td class="column4">{{event.event_date}}</td>
+                  <td class="column5">{{event.ticket_company}}</td>
+                  <td class='select'>
+                    <a class='button' href={{event.event_url}}>
+                      Select
+                    </a>
+                  </td>
+                  </tr>
+          {% endfor %}
+        
+      </tbody>
+      </table>
+  </main>
+
+  {% endif %}
+
+{% endblock %}
